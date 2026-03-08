@@ -121,8 +121,11 @@ function drawMatrix() {
         drops[i] += 1.2;
     }
 }
-setInterval(drawMatrix, 50);
-
+function matrixLoop(){
+    drawMatrix();
+    requestAnimationFrame(matrixLoop);
+}
+matrixLoop();
 /* PARTICLES - Đổi sang màu hồng phấn và hồng trắng */
 const pCanvas = document.getElementById("particles");
 const pCtx = pCanvas.getContext("2d");
@@ -149,7 +152,7 @@ class Particle {
     draw() {
         pCtx.fillStyle = "#ffb3c1"; // Hồng nhạt
         pCtx.shadowColor = "#ff0a54"; // Hồng đậm tỏa sáng
-        pCtx.shadowBlur = 8;
+        pCtx.shadowBlur = 3;
         pCtx.beginPath();
         pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         pCtx.fill();
@@ -174,8 +177,8 @@ function createText(message) {
         offCtx.fillText(lines[i], off.width / 2, off.height / 2 + (i - (lines.length - 1) / 2) * lineHeight);
     }
     let data = offCtx.getImageData(0, 0, off.width, off.height).data;
-    for (let y = 0; y < off.height; y += 4) {
-        for (let x = 0; x < off.width; x += 4) {
+    for (let y = 0; y < off.height; y += 6) {
+        for (let x = 0; x < off.width; x += 6) {
             let index = (y * off.width + x) * 4;
             if (data[index + 3] > 128) particles.push(new Particle(x, y));
         }
@@ -206,7 +209,7 @@ function floatingHearts() {
 
 /* LOGIC TEXT */
 const messages = [
-    "Chúc\nng đẹp",
+    "Chúc\nngười đẹp",
     "Có một ngày\n8/3 thật nhiều\nniềm vui",
     "Luôn\nxinh đẹp,\nhạnh phúc",
     "Và gặp\nthật nhiều\nmay mắn",
@@ -278,6 +281,7 @@ heartCanvas.onclick = () => {
     try { document.getElementById("music").play(); } catch(e) {}
     showMessage();
 }
+document.getElementById("next").style.display="block";
 </script>
 
 <audio id="music" loop>
