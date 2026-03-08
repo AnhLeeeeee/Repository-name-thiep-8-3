@@ -157,7 +157,7 @@ this.x=Math.random()*pCanvas.width;
 this.y=Math.random()*pCanvas.height;
 this.tx=x;
 this.ty=y;
-this.size=Math.random()*2+1;
+this.size=Math.random()*3+2;
 }
 
 update(){
@@ -213,8 +213,8 @@ off.height/2+(i-(lines.length-1)/2)*lineHeight
 
 let data=offCtx.getImageData(0,0,off.width,off.height).data;
 
-for(let y=0;y<off.height;y+=6){
-for(let x=0;x<off.width;x+=6){
+for (let y = 0; y < off.height; y += 4) {
+for (let x = 0; x < off.width; x += 4) {
 
 let index=(y*off.width+x)*4;
 
